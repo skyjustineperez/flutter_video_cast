@@ -71,5 +71,6 @@ class AirPlayButton extends StatelessWidget {
         onPlayerStateChanged!.call(event.connected);
       });
     }
+    await _airPlayPlatform.initAirplayConnectionStatus(id);
   }
 }

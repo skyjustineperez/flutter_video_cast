@@ -41,6 +41,16 @@ class MethodChannelAirPlay extends AirPlayPlatform {
   }
 
   @override
+  Future<bool> initAirplayConnectionStatus(int id) async {
+    if (!_channels.containsKey(id)) {
+      return _channels[id]!
+          .invokeMethod<bool>("airPlay#isConnected")
+          .then((value) => value ?? false);
+    }
+    return false;
+  }
+
+  @override
   Stream<RoutesOpeningEvent> onRoutesOpening({required int id}) {
     return _events(id).whereType<RoutesOpeningEvent>();
   }

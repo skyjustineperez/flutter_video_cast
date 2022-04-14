@@ -39,7 +39,4 @@ abstract class AirPlayPlatform {
     throw UnimplementedError("isAirplayConnect() has not been implemented");
   }
 
-  Future<bool> initAirplayConnectionStatus(int id) {
-    throw UnimplementedError("initAirplayConnectionStatus() has not been implemented");
-  }
 }

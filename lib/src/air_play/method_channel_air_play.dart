@@ -36,18 +36,12 @@ class MethodChannelAirPlay extends AirPlayPlatform {
       channel = MethodChannel('flutter_video_cast/airPlay_$id');
       channel.setMethodCallHandler((call) => _handleMethodCall(call, id));
       _channels[id] = channel;
+      Future.delayed(Duration(seconds: 1)).then((value) => channel!
+          .invokeMethod<bool>("airPlay#isConnected")
+          .then((value) => _eventStreamController
+          .add(AirplayStateChangedEvent(id, value ?? false))));
     }
     return channel!.invokeMethod<void>('airPlay#wait');
-  }
-
-  @override
-  Future<bool> initAirplayConnectionStatus(int id) async {
-    if (!_channels.containsKey(id)) {
-      return _channels[id]!
-          .invokeMethod<bool>("airPlay#isConnected")
-          .then((value) => value ?? false);
-    }
-    return false;
   }
 
   @override
